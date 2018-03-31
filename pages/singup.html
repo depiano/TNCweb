@@ -47,22 +47,28 @@
                     <div class="panel-body">
                         <form role="form" method="POST" action="login.php" name="loginForm">
                             <fieldset>
+							<div class="form-group">
+                                    <input class="form-control" placeholder="Fullname" name="fullname" type="fullname" autofocus>
+                                </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
+								<div class="form-group">
+                                    <input class="form-control" placeholder="Repeat password" name="re_password" type="password" value="">
                                 </div>
+								<div class="form-group">
+                                    <input class="form-control" placeholder="Phone" name="phone" type="tel" value="">
+                                </div>
+                         
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="">Login</button>
+                                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="">Create an Account</button>
+								<!-- New space -->
 								<p></p>
 								 <p class="text-center">
-                  <a href="singup.html" class="fliper-btn" style="color:green;">Create new account?</a>
+                  <a href="login.html" class="fliper-btn" style="color:green;">Already have an account? Sign in</a>
                 </p>
                             </fieldset>
                         </form>
