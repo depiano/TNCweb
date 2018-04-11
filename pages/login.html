@@ -22,7 +22,7 @@
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,6 +33,35 @@
 	body{
 	background-image: url("../images/google-maps.jpg");}
 	</style>
+	<script type="text/javascript">
+	 $(document).ready(function() {
+               $("#submit").click(function(){
+                   $.ajax({
+                       url: "../script_tnc/auth.php",
+                       type: "POST",
+                       data: {
+                           email: $("#email").val(),
+                           password: $("#password").val()
+                       },
+                       dataType: "JSON",
+                       success: function (jsonStr) {
+						   var s=JSON.stringify(jsonStr);
+						   $("#message").text(s['error']);
+						   /*
+						   if(s['error']!="yes")
+						   {
+								window.location.href = "./index.html";
+						   }
+						   else
+						   {
+						    $("#message").text(s['error']);
+						   }
+						   */
+                       }
+                   });
+               });
+           });
+</script>
 </head>
 
 <body>
@@ -45,21 +74,19 @@
                         <h3 class="panel-title">TNC project</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="login.php" name="loginForm">
+                        <form role="form" method="POST" name="loginForm">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus id="email">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="" id="password">
                                 </div>
-                                <div class="form-group">
-                                    <label style="color: darkgrey;">messaggio di errore
-
-                                    </label>
+								 <div class="form-group">
+                                    <label id="message" style="color:red;"></label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="">Login</button>
+                                <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Login</button>
 								<p></p>
 								 <p class="text-center">
                   <a href="singup.html" class="fliper-btn" style="color:green;">Create new account?</a>
