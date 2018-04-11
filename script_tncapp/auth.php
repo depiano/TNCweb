@@ -1,5 +1,4 @@
 <?php
-/*
 session_start();
 include("function.php");
 $con=connect();
@@ -32,6 +31,4 @@ else
 	$er['error']='yes';
 echo json_encode($er);
 close_connection($ris,$con);
-*/
-echo "ciaooo";
 ?>

@@ -45,10 +45,8 @@
                        },
                        dataType: "JSON",
                        success: function (jsonStr) {
-						   var s=JSON.stringify(jsonStr);
+						  var s=JSON.stringify(jsonStr);
 						   alert("Mi arriva: "+s);
-						   $("#message").text(s['error']);
-						   /*
 						   if(s['error']!="yes")
 						   {
 								window.location.href = "./index.html";
@@ -57,7 +55,6 @@
 						   {
 						    $("#message").text(s['error']);
 						   }
-						   */
                        }
                    });
                });
