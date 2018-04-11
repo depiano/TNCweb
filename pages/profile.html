@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,11 +31,10 @@
     <![endif]-->
     <style>
         #map {
-            height: 500px;
+            height: 400px;
             width: 100%;
         }
     </style>
-
 </head>
 
 <body>
@@ -78,10 +78,13 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="index.html"><i class="fa fa-table fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
 
                 </ul>
@@ -96,75 +99,47 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="page-header">Comune di Roccapiemonte (SA)</h4>
+                    <h4 class="page-header">Profilo utente</h4>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
             <!-- /.row -->
         </div>
+        <div style="text-align:center;">
+            <img src="../images/avatar.png" style="width:150px; height:150px;">
+        </div>
+        <p><br/></br7></p>
+        <div class="panel-body">
+            <div class="row" >
+                <form role="form">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                        <label>Fullname</label>
+                        <input class="form-control" placeholder="Fullname">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input class="form-control" placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" placeholder="Password">
+                    </div>
 
-        <div id="map"></div>
-        <script>
+                    <div style="text-align:center;">
+                    <button type="button" class="btn btn-outline btn-primary">Annulla</button>
+                    <button type="button" class="btn btn-outline btn-success">Modifica</button>
+                </div>
+                </div>
+                </form>
+            </div>
+        </div>
 
-            // This example creates a simple polygon representing the Bermuda Triangle.
-
-            function initMap() {
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 14,
-                    center: {lat: 40.760221574960845, lng: 14.6925106044672026}
-                });
-
-                // Define the LatLng coordinates for the polygon's path.
-                var Roccapiemonte = [
-                    {lat:40.7657981158734, lng:14.6961246283405},
-                    {lat:40.7684736939535, lng:14.6943572742833},
-                    {lat:40.7670027105486, lng:14.6866980378971},
-                    {lat:40.766536663893,  lng:14.6776360781577},
-                    {lat:40.7667244623426, lng:14.6771141307328},
-                    {lat:40.7670457828174, lng:14.6756193683446},
-                    {lat:40.7679981277934, lng:14.6594882874894},
-                    {lat:40.7670438885875, lng:14.6563774577233},
-                    {lat:40.76596586391381,lng:14.657247397652},
-                    {lat:40.7659766396426, lng:14.6582180709581},
-                    {lat:40.7650346156357, lng:14.6620864938814},
-                    {lat:40.7648484274642, lng:14.6626685492568},
-                    {lat:40.763009152601,  lng:14.6656516027216},
-                    {lat:40.7624713193261, lng:14.6665188912293},
-                    {lat:40.76139466943971,lng:14.6675422542161},
-                    {lat:40.7608076765326, lng:14.6678540619316},
-                    {lat:40.7601071958191, lng:14.6680940382282},
-                    {lat:40.759269436998,  lng:14.6682882741261},
-                    {lat:40.75837850500201,lng:14.6686481545231},
-                    {lat:40.7576128717951, lng:14.6691141535224},
-                    {lat:40.75686864124351,lng:14.6698764453449},
-                    {lat:40.7536782308659, lng:14.6755189449492},
-                    {lat:40.75370127201741,lng:14.6803410889426},
-                    {lat:40.7537269738605, lng:14.6857275535856},
-                    {lat:40.7536372067753, lng:14.6883297091426},
-                    {lat:40.7535472374918, lng:14.6904698736429},
-                    {lat:40.7527319858736, lng:14.6960288748174},
-                    {lat:40.74724325291361,lng:14.7039725070869},
-                    {lat:40.74521620003811,lng:14.705733761767},
-                    {lat:40.7517985984509, lng:14.7138506743964},
-                    {lat:40.7542385364511, lng:14.7100354301736},
-                    {lat:40.7657981158734, lng:14.6961246283405}
-                ];
-
-                // Construct the polygon.
-                var bermudaTriangle = new google.maps.Polygon({
-                    paths: Roccapiemonte,
-                    strokeColor: '#1439ff',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#1439ff',
-                    fillOpacity: 0.03,
-                });
-                bermudaTriangle.setMap(map);
-            }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmHJRiCR5sZ2jTMxkTIqZDQa6GV4hMzYg&callback=initMap&callback=initMap">
-        </script>
 
 
     </div>
