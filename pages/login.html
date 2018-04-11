@@ -46,14 +46,14 @@
                        dataType: "JSON",
                        success: function (jsonStr) {
 						  var s=JSON.stringify(jsonStr);
-						   alert("Mi arriva: "+s);
-						   if(s['error']!="yes")
+						   alert("Mi arriva: "+s+ "error: "+jsonStr["error"]);
+						   if(jsonStr['error']=='none')
 						   {
 								window.location.href = "./index.html";
 						   }
 						   else
 						   {
-						    $("#message").text(s['error']);
+						    $("#message").text(jsonStr['error']);
 						   }
                        }
                    });
