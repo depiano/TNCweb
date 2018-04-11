@@ -1,7 +1,7 @@
 <?php
 $host="localhost";
 $db="tnc_db";
-$us="root";
+$us="admin";
 $pas="";
 
 function connect()

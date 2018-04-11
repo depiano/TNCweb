@@ -37,7 +37,7 @@
 	 $(document).ready(function() {
                $("#submit").click(function(){
                    $.ajax({
-                       url: "../script_tnc/auth.php",
+                       url: "../script_tncapp/auth.php",
                        type: "POST",
                        data: {
                            email: $("#email").val(),
@@ -46,6 +46,7 @@
                        dataType: "JSON",
                        success: function (jsonStr) {
 						   var s=JSON.stringify(jsonStr);
+						   alert("Mi arriva: "+s);
 						   $("#message").text(s['error']);
 						   /*
 						   if(s['error']!="yes")
