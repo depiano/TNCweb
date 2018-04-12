@@ -1,7 +1,7 @@
 <?php
 $host="localhost";
-$db="my_tcnapp";
-$us="tcnapp";
+$db="tnc_db";
+$us="root";
 $pas="";
 
 function connetti()
