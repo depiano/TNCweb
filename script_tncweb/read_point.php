@@ -2,9 +2,7 @@
 session_start();
 include("function.php");
 $con=connect();
-$query="select * from censimento";
-$content='';
-$error='none';
+$query="select * from rilievo";
 $ris=run_query($query,$con);
 
 $er=array();
@@ -18,16 +16,16 @@ if(mysql_num_rows($ris)>0)
 
     while ($row = mysql_fetch_array($ris)) {
         $censimento = array();
-        $censimento['Denominazione'] = $row['Denominazione'];
-        $censimento['Latitudine'] = $row['Latitudine'];
-        $censimento['Longitudine'] = $row['Longitudine'];
-        $censimento['Civico'] = $row['Civico'];
-        $censimento['Dug'] = $row['Dug'];
-        $censimento['Esponente'] = $row['Esponente'];
-        $censimento['PathFotoCivico'] = $row['PathFotoCivico'];
-        $censimento['PathFotoAbitazione'] = $row['PathFotoAbitazione'];
-        $censimento['EmailOperatore'] = $row['EmailOperatore'];
-        $censimento['EmailAmministratore'] = $row['EmailAmministratore'];
+        $censimento['DENOMINAZIONE'] = $row['DENOMINAZIONE'];
+        $censimento['LATITUDINE'] = $row['LATITUDINE'];
+        $censimento['LONGITUDINE'] = $row['LONGITUDINE'];
+        $censimento['CIVICO'] = $row['CIVICO'];
+        $censimento['DUG'] = $row['DUG'];
+        $censimento['ESPONENTE'] = $row['ESPONENTE'];
+        $censimento['PATHFOTOCIVICO'] = $row['PATHFOTOCIVICO'];
+        $censimento['PATHFOTOABITAZIONE'] = $row['PATHFOTOABITAZIONE'];
+        $censimento['CF_USER'] = $row['CF_USER'];
+        $censimento['CF_SUPERUSER'] = $row['CF_SUPERUSER'];
         array_push($censimenti, $censimento);
     }
     $er['result']=$censimenti;

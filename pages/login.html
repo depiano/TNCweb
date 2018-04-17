@@ -37,7 +37,7 @@
 	 $(document).ready(function() {
                $("#submit").click(function(){
                    $.ajax({
-                       url: "../script_tncapp/auth.php",
+                       url: "../script_tncweb/auth.php",
                        type: "POST",
                        data: {
                            email: $("#email").val(),
@@ -45,13 +45,13 @@
                        },
                        dataType: "JSON",
                        success: function (jsonStr) {
-						   if(jsonStr['error']=='none')
+						   if(jsonStr['ERROR']=='none')
 						   {
 								window.location.href = "./index.html";
 						   }
 						   else
 						   {
-						    $("#message").text(jsonStr['error']);
+						    $("#message").text(jsonStr['ERROR']);
 						   }
                        }
                    });

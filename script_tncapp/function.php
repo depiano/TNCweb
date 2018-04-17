@@ -1,6 +1,6 @@
 <?php
 $host="localhost";
-$db="tnc_db";
+$db="db_tncapp";
 $us="root";
 $pas="";
 
