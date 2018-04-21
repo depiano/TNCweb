@@ -40,18 +40,19 @@
                        url: "../script_tncweb/auth.php",
                        type: "POST",
                        data: {
-                           email: $("#email").val(),
-                           password: $("#password").val()
+                           'EMAIL': $("#email").val(),
+                           'PASSWORD': $("#password").val()
                        },
                        dataType: "JSON",
                        success: function (jsonStr) {
+                           alert(JSON.stringify(jsonStr));
 						   if(jsonStr['ERROR']=='none')
 						   {
-								window.location.href = "./index.html";
+								window.location.href = "./index.php";
 						   }
 						   else
 						   {
-						    $("#message").text(jsonStr['ERROR']);
+						    $("#message").text('Le crendenziali che hai inserito non sono corrette!');
 						   }
                        }
                    });

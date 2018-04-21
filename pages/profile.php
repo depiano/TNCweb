@@ -1,5 +1,8 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" CF="<?php echo $_SESSION['CF']; ?>">
 
 <head>
 
@@ -39,26 +42,52 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
+            $.ajax({
+                url: "../script_tncweb/get_profile.php",
+                type: "POST",
+                data: {
+                    'CF': $('html').attr('CF')
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+
+                    if (jsonStr['ERROR'] == 'none') {
+                        //alert(JSON.stringify(jsonStr['RESULT']));
+                        $("#cf").val(jsonStr['RESULT'].CF);
+                        $("#phone").val(jsonStr['RESULT'].PHONE);
+                        $("#fullname").val(jsonStr['RESULT'].FULLNAME);
+                        $("#email").val(jsonStr['RESULT'].EMAIL);
+                    }
+                    else {
+                        $("#message").text(jsonStr['ERROR']);
+                    }
+                }
+            });
+
+            $("#modifica").click(function () {
                 $.ajax({
-                    url: "../script_tncweb/get_profile.php",
+                    url: "../script_tncweb/update_profile.php",
                     type: "POST",
                     data: {
-                        'CF': 'DPNNTN92C05I805H'
+                        'PHONE': $("#phone").val(),
+                        'PASSWORD': $("#password").val(),
+                        'CF': $('html').attr('CF')
                     },
                     dataType: "JSON",
                     success: function (jsonStr) {
-                        alert(jsonStr);
-                        if(jsonStr['ERROR']=='none')
-                        {
-                            alert('la richiesta ha avuto successo.');
+                        if (jsonStr['ERROR'] == 'none') {
+                            $("#message").text("Congratulazione! I campi sono stati aggiornati.");
                         }
-                        else
-                        {
-
-                            alert('Errore!');
+                        else {
+                            $("#message").text("Attenzione! Si è verificato un errore.");
                         }
                     }
                 });
+            });
+
+            $("#annulla").click(function () {
+                window.location.href = "./index.php";
+            });
         });
     </script>
 </head>
@@ -76,7 +105,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">TNC app</a>
+            <a class="navbar-brand" href="index.php">TNC app</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -88,7 +117,7 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="profile.html"><i class="fa fa-user fa-fw"></i> Profilo</a>
+                    <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -103,10 +132,10 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>
@@ -138,28 +167,30 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="form-group">
                         <label>Fullname</label>
-                        <input class="form-control" placeholder="Fullname">
+                        <input class="form-control" placeholder="Fullname" id="fullname" readonly />
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input class="form-control" placeholder="Email">
+                        <input class="form-control" placeholder="Email" id="email" readonly />
                     </div>
                     <div class="form-group">
                         <label>Codice Fiscale</label>
-                        <input class="form-control" placeholder="Codice Fiscale">
+                        <input class="form-control" placeholder="Codice Fiscale" id="cf" readonly />
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input class="form-control" placeholder="Phone">
+                        <input class="form-control" placeholder="Phone" id="phone">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input class="form-control" placeholder="Password">
+                        <input class="form-control" placeholder="Password" id="password">
                     </div>
-
+                    <div class="form-group">
+                        <label id="message" style="color:blue;"></label>
+                    </div>
                     <div style="text-align:center;">
-                    <button type="button" class="btn btn-outline btn-primary">Annulla</button>
-                    <button type="button" class="btn btn-outline btn-success">Modifica</button>
+                    <button type="button" class="btn btn-outline btn-primary" id="annulla" >Annulla</button>
+                    <button type="button" class="btn btn-outline btn-success" id="modifica" >Modifica</button>
                 </div>
                 </div>
                 </form>

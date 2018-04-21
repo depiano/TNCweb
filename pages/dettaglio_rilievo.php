@@ -1,8 +1,13 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,43 +29,20 @@
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
     <script type="text/javascript">
         $(document).ready(function() {
-                $.ajax({
-                    url: "../script_tncweb/get_profile.php",
-                    type: "POST",
-                    data: {
-                        'CF': 'DPNNTN92C05I805H'
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        alert(jsonStr);
-                        if(jsonStr['ERROR']=='none')
-                        {
-                            alert('la richiesta ha avuto successo.');
-                        }
-                        else
-                        {
-
-                            alert('Errore!');
-                        }
-                    }
-                });
+            $("#fullname_user").text($('html').attr('FULLNAME')+" ");
         });
     </script>
+
+
 </head>
 
 <body>
@@ -76,7 +58,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">TNC app</a>
+            <a class="navbar-brand" href="index.php">TNC app</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -85,10 +67,10 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <label id="fullname_user"></label><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="profile.html"><i class="fa fa-user fa-fw"></i> Profilo</a>
+                    <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -99,14 +81,15 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
+
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>
@@ -121,51 +104,58 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="page-header">Profilo utente</h4>
+                    <h4 class="page-header">Comune di Fisciano (SA)</h4>
+                    <label id="message" style="color:blue;"></label>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-
             <!-- /.row -->
         </div>
-        <div style="text-align:center;">
-            <img src="../images/avatar.png" style="width:150px; height:150px;">
-        </div>
-        <p><br/></br7></p>
-        <div class="panel-body">
-            <div class="row" >
-                <form role="form">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="form-group">
-                        <label>Fullname</label>
-                        <input class="form-control" placeholder="Fullname">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input class="form-control" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label>Codice Fiscale</label>
-                        <input class="form-control" placeholder="Codice Fiscale">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input class="form-control" placeholder="Phone">
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input class="form-control" placeholder="Password">
-                    </div>
 
-                    <div style="text-align:center;">
-                    <button type="button" class="btn btn-outline btn-primary">Annulla</button>
-                    <button type="button" class="btn btn-outline btn-success">Modifica</button>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Default Panel
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                    </div>
+                    <div class="panel-footer">
+                        Panel Footer
+                    </div>
                 </div>
-                </div>
-                </form>
             </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Primary Panel
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                    </div>
+                    <div class="panel-footer">
+                        Panel Footer
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        Success Panel
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                    </div>
+                    <div class="panel-footer">
+                        Panel Footer
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-4 -->
         </div>
-
 
 
     </div>

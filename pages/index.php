@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,32 +44,34 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
-                $.ajax({
-                    url: "../script_tncweb/read_point.php",
-                    type: "POST",
-                    data: {
-                        email: $("#email").val(),
-                        password: $("#password").val()
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        alert('arriva: '+JSON.stringify(jsonStr));
+            $.ajax({
+                url: "../script_tncweb/read_point.php",
+                type: "POST",
+                data: {
+                    email: $("#email").val(),
+                    password: $("#password").val()
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    alert('arriva: '+JSON.stringify(jsonStr));
 
-                        if(jsonStr['error']=='none')
-                        {
-                            $("#message").text(jsonStr['result']);
-                            for (var i = 0; i < jsonStr['result'].length; i++) {
-                                var counter = jsonStr['result'][i];
-                                console.log(counter['Denominazione']);
-                            }
-                        }
-                        else
-                        {
-                            $("#message").text(jsonStr['error']);
+                    if(jsonStr['error']=='none')
+                    {
+                        $("#message").text(jsonStr['result']);
+                        for (var i = 0; i < jsonStr['result'].length; i++) {
+                            var counter = jsonStr['result'][i];
+                            console.log(counter['Denominazione']);
                         }
                     }
-                });
+                    else
+                    {
+                        $("#message").text(jsonStr['error']);
+                    }
+                }
             });
+
+            $("#fullname_user").text($('html').attr('FULLNAME')+" ");
+        });
     </script>
 
 
@@ -82,7 +90,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">TNC app</a>
+            <a class="navbar-brand" href="index.php">TNC app</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -91,7 +99,7 @@
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <label id="fullname_user"></label><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
@@ -110,10 +118,10 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>
