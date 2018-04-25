@@ -183,7 +183,7 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input class="form-control" placeholder="Password" id="password">
+                        <input class="form-control" type="password" placeholder="Password" id="password">
                     </div>
                     <div class="form-group">
                         <label id="message" style="color:blue;"></label>
