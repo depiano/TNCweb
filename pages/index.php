@@ -44,18 +44,6 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
             height: 500px;
             width: 100%;
         }
-
-        .gm-style-iw {
-            background:#00A3FF !important;
-            left:0 !important;
-            top:0 !important;
-            width:100%  !important;
-            height:100%  !important;
-        }
-
-        .gm-style div div div div div div div div div{
-            background:#00A3FF !important;
-        }
     </style>
     <script type="text/javascript">
         var map;
@@ -89,42 +77,32 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                 title: counter['DENOMINAZIONE'],
                             });
 
-
-                            var contentString1 = '<div id=”content”>'+
-'<div id="siteNotice">'+
-'</div>'+
-'<div id="firstHeading"><span style="font-size:18px;font-weight:bold;">'
-                                +counter['DENOMINAZIONE']+
-                                '</span><br><br><img src="../images/avatar.png" style="max-width:100%;" /><br><br>'+
-'Contact info<br>Phone: +65 123456789<br>Email: <a href="mailto:info@example.com">info@example.com</a>'+
-'</div><div id="bodyContent">'+
-'<p><b>Uluru</b> Lorem upsum</p>'+
-'</div>'+
-'</div>';
+                            var esponente="";
+                            if(counter['ESPONENTE']!=null)
+                                    esponente=counter['ESPONENTE'];
 
                                 var contentString = '<div id="content">' +
                                     '<div id="siteNotice">' +
                                     '</div>' +
-                                    '<h1 id="firstHeading" class="firstHeading">'+counter['DENOMINAZIONE']+'</h1>' +
+                                    '<h3 id="firstHeading" class="firstHeading">'+counter['DUG']+" "+counter['DENOMINAZIONE']+
+                                    " "+esponente+ " "+ counter['CIVICO']+'</h3>' +
                                     '<div id="bodyContent">' +
-                                    '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                                    'sandstone rock formation in the southern part of the ' +
-                                    'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-                                    'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-                                    '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-                                    'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-                                    'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-                                    'Aboriginal people of the area. It has many springs, waterholes, ' +
-                                    'rock caves and ancient paintings. Uluru is listed as a World ' +
-                                    'Heritage Site.</p>' +
-                                    '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-                                    'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-                                    '(last visited June 22, 2009).</p>' +
+                                    '<p><b>Data rilievo: </b>12/04/2018<br/>' +
+                                    'Longitudine: '+counter['LONGITUDINE']+'<br/>' +
+                                    'Latitudine: '+counter['LATITUDINE']+'<br/>' +
+                                    'Codistat: '+counter['CODISTAT']+'<br/>' +
+                                    'Nome comune: '+counter['NOMECOMUNE']+'<br/>' +
+
+                                    'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
+                                    'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
+                            'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
+                                    'Per maggiori dettagli <a href="dettaglio_rivievo.php">fai click qui...</a><br/>'+
+
                                     '</div>' +
                                     '</div>';
 
                                 var infowindow = new google.maps.InfoWindow({
-                                    content: contentString1
+                                    content: contentString
                                 });
 
 
