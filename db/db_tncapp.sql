@@ -1,32 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Creato il: Apr 28, 2018 alle 11:48
--- Versione del server: 10.1.25-MariaDB
--- Versione PHP: 5.6.31
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `db_tncapp`
---
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `rilievo`
---
+create database db_tncapp;
+use db_tncapp;
 
 CREATE TABLE `rilievo` (
   `LONGITUDINE` varchar(35) NOT NULL,
@@ -44,10 +17,6 @@ CREATE TABLE `rilievo` (
   `LONGITUDINE_ARR` varchar(35) DEFAULT NULL,
   `LATITUDINE_ARR` varchar(35) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `rilievo`
---
 
 INSERT INTO `rilievo` (`LONGITUDINE`, `LATITUDINE`, `CODISTAT`, `NOMECOMUNE`, `DUG`, `DENOMINAZIONE`, `CIVICO`, `ESPONENTE`, `PATHFOTOCIVICO`, `PATHFOTOABITAZIONE`, `CF_USER`, `CF_SUPERUSER`, `LONGITUDINE_ARR`, `LATITUDINE_ARR`) VALUES
 ('14.7583025077829', '40.7777896012147', '065052', 'FISCIANO', 'VIA', 'FERALDO', 117, NULL, NULL, NULL, 'BVLVCN91C27A717P', 'DPNNTN92C05I805H', '14.7583025078', '40.7777896012'),
@@ -4354,12 +4323,6 @@ INSERT INTO `rilievo` (`LONGITUDINE`, `LATITUDINE`, `CODISTAT`, `NOMECOMUNE`, `D
 ('14.8199479375422', '40.7561865482235', '065052', 'FISCIANO', 'VIA', 'ROCCHI', 71, NULL, NULL, NULL, NULL, NULL, '14.8199479375', '40.7561865482'),
 ('14.820199298996', '40.7561426086124', '065052', 'FISCIANO', 'VIA', 'ROCCHI', 73, NULL, NULL, NULL, NULL, NULL, '14.8201992990', '40.7561426086');
 
--- --------------------------------------------------------
-
---
--- Struttura della tabella `super_user`
---
-
 CREATE TABLE `super_user` (
   `EMAIL` varchar(25) NOT NULL,
   `FULLNAME` varchar(25) NOT NULL,
@@ -4368,18 +4331,8 @@ CREATE TABLE `super_user` (
   `CF` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dump dei dati per la tabella `super_user`
---
-
 INSERT INTO `super_user` (`EMAIL`, `FULLNAME`, `PHONE`, `PASSWORD`, `CF`) VALUES
 ('DEPIANOANTONIO@GMAIL.COM', 'ANTONIO DE PIANO', '3463316586', 'antonio', 'DPNNTN92C05I805H');
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `user`
---
 
 CREATE TABLE `user` (
   `EMAIL` varchar(25) NOT NULL,
@@ -4390,49 +4343,21 @@ CREATE TABLE `user` (
   `TYPE` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dump dei dati per la tabella `user`
---
-
 INSERT INTO `user` (`EMAIL`, `FULLNAME`, `PHONE`, `PASSWORD`, `CF`, `TYPE`) VALUES
 ('V.BEVILACQUA91@GMAIL.COM', 'VINCENZO BEVILACQUA', '3458489186', 'vincenzo', 'BVLVCN91C27A717P', 'SIMPLE OPERATOR');
 
---
--- Indici per le tabelle scaricate
---
-
---
--- Indici per le tabelle `rilievo`
---
 ALTER TABLE `rilievo`
   ADD PRIMARY KEY (`LONGITUDINE`,`LATITUDINE`,`CIVICO`),
   ADD KEY `CF_SUPERUSER` (`CF_SUPERUSER`),
   ADD KEY `CF_USER` (`CF_USER`);
 
---
--- Indici per le tabelle `super_user`
---
 ALTER TABLE `super_user`
   ADD PRIMARY KEY (`CF`);
 
---
--- Indici per le tabelle `user`
---
 ALTER TABLE `user`
   ADD PRIMARY KEY (`CF`);
 
---
--- Limiti per le tabelle scaricate
---
-
---
--- Limiti per la tabella `rilievo`
---
 ALTER TABLE `rilievo`
   ADD CONSTRAINT `rilievo_ibfk_1` FOREIGN KEY (`CF_USER`) REFERENCES `user` (`CF`),
   ADD CONSTRAINT `rilievo_ibfk_2` FOREIGN KEY (`CF_SUPERUSER`) REFERENCES `super_user` (`CF`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  
