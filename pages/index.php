@@ -95,8 +95,8 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                     'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
                                     'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
                             'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
-                                    'Per maggiori dettagli <a href="dettaglio_rivievo.php?lat="'+counter['LATITUDINE']+
-                                    '&long='+counter['LONGITUDINE']+'>fai click qui...</a><br/>'+
+                                    'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat='+counter['LATITUDINE']+
+                                    '&long='+counter['LONGITUDINE']+'">fai click qui...</a><br/>'+
                                     '</div>'+
                                     '</div>';
 
@@ -352,7 +352,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                         <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
 
                 </ul>

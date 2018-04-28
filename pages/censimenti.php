@@ -1,9 +1,15 @@
 <?php
 session_start();
-$cf=$_SESSION['CF'];
+//Controllo che si è loggato!
+if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
+    header('Location: ../pages/notfound.html');
 ?>
 <!DOCTYPE html>
 <html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,28 +39,27 @@ $cf=$_SESSION['CF'];
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
     <![endif]-->
-      <style>
+    <style>
         #map {
             height: 500px;
             width: 100%;
         }
     </style>
     <script type="text/javascript">
-         var map;
+        var map;
         var marker;
 
         $(document).ready(function() {
-
             $.ajax({
-                url: "../script_tncweb/point_detail.php",
+                url: "../script_tncweb/read_point_not_verified.php",
                 type: "POST",
                 data: {
-                    LATITUDINE: <?php echo $_GET['lat']; ?>,
-                    LONGITUDINE: <?php echo $_GET['long']; ?>
+                    email: $("#email").val(),
+                    password: $("#password").val()
                 },
                 dataType: "JSON",
                 success: function (jsonStr) {
-                    console.log('arriva: '+JSON.stringify(jsonStr));
+                    //console.log('arriva: '+JSON.stringify(jsonStr));
 
                     if(jsonStr['ERROR']=='none')
                     {
@@ -70,6 +75,7 @@ $cf=$_SESSION['CF'];
                                 position: myLatLng,
                                 map: map,
                                 title: counter['DENOMINAZIONE'],
+                                icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
                             });
 
                             var esponente="";
@@ -90,6 +96,8 @@ $cf=$_SESSION['CF'];
                                     'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
                                     'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
                             'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
+                                    'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat='+counter['LATITUDINE']+
+                                    '&long='+counter['LONGITUDINE']+'">fai click qui...</a><br/>'+
                                     '</div>'+
                                     '</div>';
 
@@ -97,10 +105,6 @@ $cf=$_SESSION['CF'];
                                     content: contentString
                                 });
 
-                                
-                                //Disabilita i bottoni qui
-                                if(counter['CF_SUPERUSER']!=NULL)
-                                    $("#conferma_censimento").prop("disabled",true);
 
                                 marker.addListener('click', function() {
                                     infowindow.open(map, marker);
@@ -108,24 +112,6 @@ $cf=$_SESSION['CF'];
 
 
                         }
-
-                         var detail_user = '<b>Fullname:</b> ' +jsonStr['OPERATOR'].FULLNAME+'<BR/>'+
-                         '<b>Email:</b> '+jsonStr['OPERATOR'].FULLNAME+'<BR/>'+
-                         '<b>Phone:</b> '+jsonStr['OPERATOR'].PHONE+'<BR/>'+
-                         '<b>CF:</b> '+jsonStr['OPERATOR'].CF+'<BR/>'+
-                         '<b>Type:</b> '+jsonStr['OPERATOR'].TYPE;
-                         $("#user_detail").html(detail_user);
-
-                         var point_detail= 
-                                    '<b>Longitudine:</b> '+counter['LONGITUDINE']+'<br/>' +
-                                    '<b>Latitudine:</b> '+counter['LATITUDINE']+'<br/>' +
-                                    '<b>Foto abitazione:</b> <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
-                                    '<b>Foto civico:</b> <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/>'+
-                                    '<b>Nome comune:</b> '+counter['NOMECOMUNE'];
-
-                         $("#point_detail").html(point_detail);
-                        $("#data_richiesta").text("Qui inserisco la data");
-                        $("#cod_comune").html("<b>Codistat:</b> "+counter['CODISTAT']);
                     }
                     else
                     {
@@ -135,33 +121,6 @@ $cf=$_SESSION['CF'];
             });
 
             $("#fullname_user").text($('html').attr('FULLNAME')+" ");
-
-             $("#conferma_censimento").click(function () {
-                $.ajax({
-                    url: "../script_tncweb/confirm_census.php",
-                    type: "POST",
-                    data: {
-                        'LONGITUDINE': <?php echo $_GET['long']; ?>,
-                        'LATITUDINE': <?php echo $_GET['lat']; ?>,
-                        'CF': ""+<?php echo $cf; ?>
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        alert(jsonStr);
-                        if (jsonStr['ERROR'] == 'none') {
-                            $("#message").text("Congratulazione! Hai approvato il censimento.");
-                        }
-                        else {
-                            $("#message").text("Attenzione! Si è verificato un errore.");
-                        }
-                    }
-                });
-            });
-            
-            $("#annulla").click(function () {
-                window.location.href = "./index.php";
-            });
-        
         });
 
         // This example creates a simple polygon representing the Bermuda Triangle.
@@ -344,7 +303,10 @@ $cf=$_SESSION['CF'];
             });
             */
         }
+
     </script>
+
+
 </head>
 
 <body>
@@ -360,7 +322,7 @@ $cf=$_SESSION['CF'];
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">TNCapp</a>
+            <a class="navbar-brand" href="index.php">TNC app</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -407,69 +369,18 @@ $cf=$_SESSION['CF'];
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">Comune di Fisciano (SA)</h4>
+                    <label id="message" style="color:blue;"></label>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
         </div>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Dettaglio operatore
-                    </div>
-                    <div class="panel-body">
-                        <p id="user_detail">
-                        </p>
-                    </div>
-                    <div class="panel-footer">
-                        <b><u>Richiesta inviata in data:</u></b> <span id="data_richiesta"></span>
-                    </div>
-                </div>
-            </div>
-            <!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                       Dettaglio censimento
-                    </div>
-                    <div class="panel-body">
-                    <p id="point_detail">
-                        </p>
-                         </div>
-                    <div class="panel-footer">
-                    <span id="cod_comune"></span>
-                    </div>
-                </div>
-            </div>
-            <!-- /.col-lg-4 -->
-            <div class="col-lg-4">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        Gestisci 
-                    </div>
-                    <div class="panel-body">
-                        Attraverso questa panel potrai convalidare un censimento o nel caso, dedidere di esaminarlo in seguito...<br/>
-                        <label id="message" style="color:blue;"></label><br/>
-                        <div text-align="center">
-                        <button type="button" class="btn btn-outline btn-primary" id="conferma_censimento" >Conferma Censimento</button>
-                        <button type="button" class="btn btn-outline btn-success" id="annulla" >Esamina in futuro</button>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <b><u>ATTENZIONE! Controlla i dati inseriti dall'utente</u></b>
-                    </div>
-                </div>
-            </div>
-            <!-- /.col-lg-4 -->
-        </div>
-        <div class="row">
         <div id="map"></div>
-  <script async defer
+        <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmHJRiCR5sZ2jTMxkTIqZDQa6GV4hMzYg&callback=initMap&callback=initMap">
         </script>
-        </div>
+
 
     </div>
     <!-- /#page-wrapper -->
