@@ -92,13 +92,12 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                     'Latitudine: '+counter['LATITUDINE']+'<br/>' +
                                     'Codistat: '+counter['CODISTAT']+'<br/>' +
                                     'Nome comune: '+counter['NOMECOMUNE']+'<br/>' +
-
                                     'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
                                     'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
                             'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
-                                    'Per maggiori dettagli <a href="dettaglio_rivievo.php">fai click qui...</a><br/>'+
-
-                                    '</div>' +
+                                    'Per maggiori dettagli <a href="dettaglio_rivievo.php?lat="'+counter['LATITUDINE']+
+                                    '&long='+counter['LONGITUDINE']+'>fai click qui...</a><br/>'+
+                                    '</div>'+
                                     '</div>';
 
                                 var infowindow = new google.maps.InfoWindow({
