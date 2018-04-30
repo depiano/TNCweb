@@ -401,7 +401,7 @@ $cf=$_SESSION['CF'];
                         <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
 
                 </ul>
