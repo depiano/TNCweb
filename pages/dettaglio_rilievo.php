@@ -86,7 +86,7 @@ $cf=$_SESSION['CF'];
                                     '<h3 id="firstHeading" class="firstHeading">'+counter['DUG']+" "+counter['DENOMINAZIONE']+
                                     " "+esponente+ " "+ counter['CIVICO']+'</h3>' +
                                     '<div id="bodyContent">' +
-                                    '<p><b>Data rilievo: </b>12/04/2018<br/>' +
+                                    '<p><b>Data rilievo: </b>'+counter['DATA'] +'<br/>'+
                                     'Longitudine: '+counter['LONGITUDINE']+'<br/>' +
                                     'Latitudine: '+counter['LATITUDINE']+'<br/>' +
                                     'Codistat: '+counter['CODISTAT']+'<br/>' +
@@ -106,7 +106,7 @@ $cf=$_SESSION['CF'];
                                 {
                                     $("#conferma_censimento").prop("disabled",true);
                                     $("#annulla").prop("disabled",true);
-                                    $("#message").text("In data: Dataa hai validato questa struttura");
+                                    $("#message").text("In data: "+counter['DATA']+" hai validato questa struttura.");
                                 }
 
                                 marker.addListener('click', function() {
@@ -131,7 +131,7 @@ $cf=$_SESSION['CF'];
                                     '<b>Nome comune:</b> '+counter['NOMECOMUNE'];
 
                          $("#point_detail").html(point_detail);
-                        $("#data_richiesta").text("Qui inserisco la data");
+                        $("#data_richiesta").text(""+counter['DATA']);
                         $("#cod_comune").html("<b>Codistat:</b> "+counter['CODISTAT']);
                     }
                     else

@@ -88,7 +88,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                     '<h3 id="firstHeading" class="firstHeading">'+counter['DUG']+" "+counter['DENOMINAZIONE']+
                                     " "+esponente+ " "+ counter['CIVICO']+'</h3>' +
                                     '<div id="bodyContent">' +
-                                    '<p><b>Data rilievo: </b>12/04/2018<br/>' +
+                                    '<p><b>Data rilievo: </b>'+counter['DATA']+'<br/>' +
                                     'Longitudine: '+counter['LONGITUDINE']+'<br/>' +
                                     'Latitudine: '+counter['LATITUDINE']+'<br/>' +
                                     'Codistat: '+counter['CODISTAT']+'<br/>' +
