@@ -337,7 +337,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="../script_tncweb/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -353,7 +353,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                         <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>

@@ -2,7 +2,8 @@
 session_start();
 include("./function.php");
 $con=connect();
-$query="select * from super_user where EMAIL='".$_POST['EMAIL']."' AND PASSWORD='".$_POST['PASSWORD']."'";
+$passwordmd5=md5($_POST['PASSWORD']);
+$query="select * from super_user where EMAIL='".$_POST['EMAIL']."' AND PASSWORD='".$passwordmd5."'";
 $ris=run_query($query,$con);
 
 $er=array();

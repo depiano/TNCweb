@@ -1,5 +1,8 @@
 <?php
-  session_start();
+session_start();
+ //Controllo che si è loggato!
+if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
+    header('Location: ../pages/notfound.html');
 ?>
 <!DOCTYPE html>
 <html lang="en" CF="<?php echo $_SESSION['CF']; ?>">
@@ -12,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TNC app</title>
+    <title>TNCapp</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -100,12 +103,12 @@
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">TNC app</a>
+            <a class="navbar-brand" href="index.php">TNCapp</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -120,7 +123,7 @@
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="../script_tncweb/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -135,7 +138,7 @@
                         <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
                     </li>
                     <li>
-                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>

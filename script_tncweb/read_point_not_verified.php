@@ -2,7 +2,7 @@
 session_start();
 include("function.php");
 $con=connect();
-$query="select * from rilievo where CF_SUPERUSER is NULL";
+$query="select * from rilievo where CF_SUPERUSER is NULL AND CF_USER is not NULL";
 $ris=run_query($query,$con);
 
 $er=array();

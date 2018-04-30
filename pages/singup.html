@@ -19,6 +19,7 @@
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -32,7 +33,37 @@
 	<style>
 	body{
 	background-image: url("../images/google-maps.jpg");}
-	</style>
+    </style>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+                  $("#submit").click(function(){
+                      $.ajax({
+                          url: "../script_tncweb/signup.php",
+                          type: "POST",
+                          data: {
+                              'EMAIL': $("#email").val(),
+                              'PASSWORD': $("#password").val(),
+                              'PHONE': $("#phone").val(),
+                              'CF': $("#cf").val(),
+                              'FULLNAME': $("#fullname").val()
+                          },
+                          dataType: "JSON",
+                          success: function (jsonStr) {
+                             // alert(JSON.stringify(jsonStr));
+                              if(jsonStr['ERROR']=='none')
+                              {
+                                $("#message").text('Congratulazione! Account registrato.');
+                              }
+                              else
+                              {
+                               $("#message").text('Attenzione! Account già attivo.');
+                              }
+                          }
+                      });
+                  });
+              });
+   </script>
 </head>
 
 <body>
@@ -45,26 +76,31 @@
                         <h3 class="panel-title">TNC project</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="login.php" name="loginForm">
+                        <form role="form" method="POST" name="loginForm">
                             <fieldset>
 							<div class="form-group">
-                                    <input class="form-control" placeholder="Fullname" name="fullname" type="fullname" autofocus>
+                                    <input class="form-control" placeholder="Fullname" name="fullname" type="fullname" id="fullname" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="email" type="email" id="email"autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" id="password" value="">
                                 </div>
 								<div class="form-group">
-                                    <input class="form-control" placeholder="Repeat password" name="re_password" type="password" value="">
+                                    <input class="form-control" placeholder="Repeat password" name="re_password" type="password" id="repeat_password" value="">
                                 </div>
 								<div class="form-group">
-                                    <input class="form-control" placeholder="Phone" name="phone" type="tel" value="">
+                                    <input class="form-control" placeholder="Phone" name="phone" type="tel" id="phone" value="">
                                 </div>
-                         
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="CF" name="cf" type="text" id="cf" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label id="message" ></label>
+                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="">Create an Account</button>
+                                <button type="button" class="btn btn-primary btn-lg btn-block" id="submit">Create an Account</button>
 								<!-- New space -->
 								<p></p>
 								 <p class="text-center">

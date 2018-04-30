@@ -2,7 +2,8 @@
 session_start();
 include("./function.php");
 $con=connect();
-$query="UPDATE super_user SET PASSWORD='".$_POST['PASSWORD']."',PHONE='".$_POST['PHONE']."' WHERE CF='".$_POST['CF']."'";
+$passwordmd5=md5($_POST['PASSWORD']);
+$query="UPDATE super_user SET PASSWORD='".$passwordmd5."',PHONE='".$_POST['PHONE']."' WHERE CF='".$_POST['CF']."'";
 
 $ris=run_query($query,$con);
 

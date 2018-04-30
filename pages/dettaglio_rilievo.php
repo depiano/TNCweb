@@ -1,5 +1,8 @@
 <?php
 session_start();
+//Controllo che si è loggato!
+if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
+    header('Location: ../pages/notfound.html');
 $cf=$_SESSION['CF'];
 ?>
 <!DOCTYPE html>
@@ -54,7 +57,7 @@ $cf=$_SESSION['CF'];
                 },
                 dataType: "JSON",
                 success: function (jsonStr) {
-                    console.log('arriva: '+JSON.stringify(jsonStr));
+                    //console.log('arriva: '+JSON.stringify(jsonStr));
 
                     if(jsonStr['ERROR']=='none')
                     {
@@ -72,6 +75,7 @@ $cf=$_SESSION['CF'];
                                 title: counter['DENOMINAZIONE'],
                             });
 
+                            //alert("Esponente: "+counter['ESPONENTE']);
                             var esponente="";
                             if(counter['ESPONENTE']!=null)
                                     esponente=counter['ESPONENTE'];
@@ -96,11 +100,14 @@ $cf=$_SESSION['CF'];
                                 var infowindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
-
                                 
                                 //Disabilita i bottoni qui
-                                if(counter['CF_SUPERUSER']!=NULL)
+                                if(counter['CF_SUPERUSER']!=null)
+                                {
                                     $("#conferma_censimento").prop("disabled",true);
+                                    $("#annulla").prop("disabled",true);
+                                    $("#message").text("In data: Dataa hai validato questa struttura");
+                                }
 
                                 marker.addListener('click', function() {
                                     infowindow.open(map, marker);
@@ -143,13 +150,16 @@ $cf=$_SESSION['CF'];
                     data: {
                         'LONGITUDINE': <?php echo $_GET['long']; ?>,
                         'LATITUDINE': <?php echo $_GET['lat']; ?>,
-                        'CF': ""+<?php echo $cf; ?>
+                        'CF': $('html').attr('CF')
                     },
                     dataType: "JSON",
                     success: function (jsonStr) {
-                        alert(jsonStr);
+                        //alert(jsonStr);
                         if (jsonStr['ERROR'] == 'none') {
-                            $("#message").text("Congratulazione! Hai approvato il censimento.");
+                            $("#message").text("Congratulazione! Hai convalidato il censimento.");
+                            $("#conferma_censimento").prop("disabled",true);
+                            $("#annulla").prop("disabled",true);
+
                         }
                         else {
                             $("#message").text("Attenzione! Si è verificato un errore.");
@@ -375,7 +385,7 @@ $cf=$_SESSION['CF'];
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="../script_tncweb/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -391,7 +401,7 @@ $cf=$_SESSION['CF'];
                         <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
-                        <a href="index.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
+                        <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti</a>
                     </li>
 
                 </ul>
