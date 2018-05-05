@@ -113,10 +113,6 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
 
                         }
                     }
-                    else
-                    {
-                        $("#message").text(jsonStr['ERROR']);
-                    }
                 }
             });
 

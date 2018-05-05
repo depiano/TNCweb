@@ -132,7 +132,8 @@ $cf=$_SESSION['CF'];
 
                          $("#point_detail").html(point_detail);
                         $("#data_richiesta").text(""+counter['DATA']);
-                        $("#cod_comune").html("<b>Codistat:</b> "+counter['CODISTAT']);
+                        $("#cod_comune").html(counter['DUG']+" "+counter['DENOMINAZIONE']+
+                                    " "+esponente+" "+ counter['CIVICO']+" | <b>Codistat:</b> "+counter['CODISTAT']);
                     }
                     else
                     {
