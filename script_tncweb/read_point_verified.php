@@ -25,6 +25,7 @@ if(mysql_num_rows($ris)>0)
         $censimento['PATHFOTOCIVICO'] = $row['PATHFOTOCIVICO'];
         $censimento['PATHFOTOABITAZIONE'] = $row['PATHFOTOABITAZIONE'];
         $censimento['CF_USER'] = $row['CF_USER'];
+		$censimento['DATA'] = $row['DATA'];
         $censimento['NOMECOMUNE'] = $row['NOMECOMUNE'];
         $censimento['CODISTAT'] = $row['CODISTAT'];
         $censimento['CF_SUPERUSER'] = $row['CF_SUPERUSER'];

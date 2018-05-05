@@ -463,8 +463,8 @@ $cf=$_SESSION['CF'];
                         Attraverso questa panel potrai convalidare un censimento o nel caso, dedidere di esaminarlo in seguito...<br/>
                         <label id="message" style="color:blue;"></label><br/>
                         <div text-align="center">
-                        <button type="button" class="btn btn-outline btn-primary" id="conferma_censimento" >Conferma Censimento</button>
-                        <button type="button" class="btn btn-outline btn-success" id="annulla" >Esamina in futuro</button>
+                        <button type="button" class="btn btn-outline btn-primary" id="conferma_censimento" >Valida Censimento</button>
+                        <button type="button" class="btn btn-outline btn-success" id="annulla" >Invalida Censimento</button>
                         </div>
                     </div>
                     <div class="panel-footer">

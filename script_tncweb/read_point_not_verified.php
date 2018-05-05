@@ -21,6 +21,9 @@ if(mysql_num_rows($ris)>0)
         $censimento['LONGITUDINE'] = $row['LONGITUDINE'];
         $censimento['CIVICO'] = $row['CIVICO'];
         $censimento['DUG'] = $row['DUG'];
+		$censimento['CODISTAT'] = $row['CODISTAT'];
+		$censimento['DATA'] = $row['DATA'];
+		$censimento['NOMECOMUNE'] = $row['NOMECOMUNE'];
         $censimento['ESPONENTE'] = $row['ESPONENTE'];
         $censimento['PATHFOTOCIVICO'] = $row['PATHFOTOCIVICO'];
         $censimento['PATHFOTOABITAZIONE'] = $row['PATHFOTOABITAZIONE'];

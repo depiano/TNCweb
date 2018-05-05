@@ -135,7 +135,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Roccapiemonte</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Mappa Fisciano</a>
                     </li>
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>

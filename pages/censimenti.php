@@ -322,7 +322,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">TNC app</a>
+            <a class="navbar-brand" href="index.php">TNCapp</a>
         </div>
         <!-- /.navbar-header -->
 
