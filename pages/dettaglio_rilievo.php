@@ -77,7 +77,7 @@ $cf=$_SESSION['CF'];
 
                             //alert("Esponente: "+counter['ESPONENTE']);
                             var esponente="";
-                            if(counter['ESPONENTE']!=null)
+                            if(counter['ESPONENTE']!="NON DISPONIBILE")
                                     esponente=counter['ESPONENTE'];
 
                                 var contentString = '<div id="content">' +
@@ -404,7 +404,9 @@ $cf=$_SESSION['CF'];
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
-
+                    <li>
+                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

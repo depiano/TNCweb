@@ -6,10 +6,6 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
 ?>
 <!DOCTYPE html>
 <html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +13,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TNC app</title>
+    <title>TNCapp</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -78,7 +74,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                             });
 
                             var esponente="";
-                            if(counter['ESPONENTE']!=null)
+                            if(counter['ESPONENTE']!="NON DISPONIBILE")
                                     esponente=counter['ESPONENTE'];
 
                                 var contentString = '<div id="content">' +
@@ -349,6 +345,9 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                     </li>
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
+                    </li>
+                    <li>
+                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
                     </li>
 
                 </ul>

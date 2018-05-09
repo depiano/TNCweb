@@ -5,7 +5,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
     header('Location: ../pages/notfound.html');
 ?>
 <!DOCTYPE html>
-<html lang="en" CF="<?php echo $_SESSION['CF']; ?>">
+<html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
 
 <head>
 
@@ -91,6 +91,8 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
             $("#annulla").click(function () {
                 window.location.href = "./index.php";
             });
+
+            $("#fullname_user").text($('html').attr('FULLNAME')+" ");
         });
     </script>
 </head>
@@ -117,7 +119,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
             <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                <label id="fullname_user"></label><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Profilo</a>
@@ -139,6 +141,9 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                     </li>
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
+                    </li>
+                    <li>
+                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
                     </li>
 
                 </ul>

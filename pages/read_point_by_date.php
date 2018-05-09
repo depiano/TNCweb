@@ -2,14 +2,49 @@
 session_start();
 //Controllo che si è loggato!
 if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
-    header('Location: ../pages/notfound.html');
+    header('Location: ./notfound.html');
+include("../script_tncweb/function.php");
+$con=connect();
+$date=$_GET['date'];
+$query="select * from rilievo where DATA='".$date."' AND STATO is not null";
+$ris=run_query($query,$con);
+
+$er=array();
+
+$censimenti=array();
+
+if(mysql_num_rows($ris)>0)
+{
+    $er['ERROR']='none';
+    //header('Location: ../pages/index.html');
+
+    while ($row = mysql_fetch_array($ris)) {
+        $censimento = array();
+        $censimento['DENOMINAZIONE'] = $row['DENOMINAZIONE'];
+        $censimento['LATITUDINE'] = $row['LATITUDINE'];
+        $censimento['LONGITUDINE'] = $row['LONGITUDINE'];
+        $censimento['CIVICO'] = $row['CIVICO'];
+        $censimento['DUG'] = $row['DUG'];
+        $censimento['ESPONENTE'] = $row['ESPONENTE'];
+        $censimento['PATHFOTOCIVICO'] = $row['PATHFOTOCIVICO'];
+        $censimento['PATHFOTOABITAZIONE'] = $row['PATHFOTOABITAZIONE'];
+        $censimento['CF_USER'] = $row['CF_USER'];
+        $censimento['DATA'] = $row['DATA'];
+        $censimento['STATO']=$row['STATO'];
+        $censimento['NOMECOMUNE'] = $row['NOMECOMUNE'];
+        $censimento['CODISTAT'] = $row['CODISTAT'];
+        $censimento['CF_SUPERUSER'] = $row['CF_SUPERUSER'];
+        array_push($censimenti, $censimento);
+    }
+    $er['RESULT']=$censimenti;
+
+}
+else
+    $er['ERROR']='yes';
+close_connection($ris,$con);
 ?>
 <!DOCTYPE html>
 <html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,76 +85,76 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
         var marker;
 
         $(document).ready(function() {
-            $.ajax({
-                url: "../script_tncweb/read_point_not_verified.php",
-                type: "POST",
-                data: {
-                    email: $("#email").val(),
-                    password: $("#password").val()
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    //console.log('arriva: '+JSON.stringify(jsonStr));
-
-                    if(jsonStr['ERROR']=='none')
-                    {
-                       // $("#message").text(jsonStr['RESULT']);
-                        for (var i = 0; i < jsonStr['RESULT'].length; i++) {
-                            var counter = jsonStr['RESULT'][i];
-                            console.log(counter['DENOMINAZIONE']+ " - LONGITUDINE:"
-                               +counter['LONGITUDINE']+" LATITUDINE:"+counter['LATITUDINE']);
-
-                            var myLatLng = {lat: parseFloat(counter['LATITUDINE']), lng: parseFloat(counter['LONGITUDINE'])};
-
-                            marker = new google.maps.Marker({
-                                position: myLatLng,
-                                map: map,
-                                title: counter['DENOMINAZIONE'],
-                                icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-                            });
-
-                            var esponente="";
-                            if(counter['ESPONENTE']!="NON DISPONIBILE")
-                                    esponente=counter['ESPONENTE'];
-
-                                var contentString = '<div id="content">' +
-                                    '<div id="siteNotice">' +
-                                    '</div>' +
-                                    '<h3 id="firstHeading" class="firstHeading">'+counter['DUG']+" "+counter['DENOMINAZIONE']+
-                                    " "+esponente+ " "+ counter['CIVICO']+'</h3>' +
-                                    '<div id="bodyContent">' +
-                                    '<p><b>Data rilievo: </b>'+counter['DATA']+'<br/>' +
-                                    'Longitudine: '+counter['LONGITUDINE']+'<br/>' +
-                                    'Latitudine: '+counter['LATITUDINE']+'<br/>' +
-                                    'Codistat: '+counter['CODISTAT']+'<br/>' +
-                                    'Nome comune: '+counter['NOMECOMUNE']+'<br/>' +
-                                    'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
-                                    'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
-                            'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
-                                    'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat='+counter['LATITUDINE']+
-                                    '&long='+counter['LONGITUDINE']+'">fai click qui...</a><br/>'+
-                                    '</div>'+
-                                    '</div>';
-
-                                var infowindow = new google.maps.InfoWindow({
-                                    content: contentString
-                                });
-
-
-                                marker.addListener('click', function() {
-                                    infowindow.open(map, marker);
-                                });
-
-
-                        }
-                    }
-                }
-            });
 
             $("#fullname_user").text($('html').attr('FULLNAME')+" ");
+
+            var jsonStr = <?php echo json_encode($er); ?>;
+
+            if (jsonStr['ERROR'] == 'none') {
+                // $("#message").text(jsonStr['RESULT']);
+                for (var i = 0; i < jsonStr['RESULT'].length; i++) {
+                    var counter = jsonStr['RESULT'][i];
+                    console.log(counter['DENOMINAZIONE'] + " - LONGITUDINE:"
+                        + counter['LONGITUDINE'] + " LATITUDINE:" + counter['LATITUDINE']);
+
+                    var myLatLng = {lat: parseFloat(counter['LATITUDINE']), lng: parseFloat(counter['LONGITUDINE'])};
+
+                    if(counter['STATO']=="VALIDATO")
+                    {
+
+                        marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: counter['DENOMINAZIONE']
+                        });
+                    }
+                    else if (counter['STATO']=="NON VALIDATO")
+                    {
+                        marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: counter['DENOMINAZIONE'],
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+                        });
+                    }
+
+                    var esponente = "";
+                    if (counter['ESPONENTE'] != "NON DISPONIBILE")
+                        esponente = counter['ESPONENTE'];
+
+                    var contentString = '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        '</div>' +
+                        '<h3 id="firstHeading" class="firstHeading">' + counter['DUG'] + " " + counter['DENOMINAZIONE'] +
+                        " " + esponente + " " + counter['CIVICO'] + '</h3>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>Data rilievo: </b>' + counter['DATA'] + '<br/>' +
+                        'Longitudine: ' + counter['LONGITUDINE'] + '<br/>' +
+                        'Latitudine: ' + counter['LATITUDINE'] + '<br/>' +
+                        'Codistat: ' + counter['CODISTAT'] + '<br/>' +
+                        'Nome comune: ' + counter['NOMECOMUNE'] + '<br/>' +
+                        'Foto abitazione: <a href="' + counter['PATHFOTOABITAZIONE'] + '">Clicca qui</a><br/>' +
+                        'Foto civico: <a href="' + counter['PATHFOTOCIVICO'] + '">Clicca qui</a><br/><br/>' +
+                        'Il censimento di questa abitazione è stato effettuato da: ' + $('html').attr('FULLNAME') + '<br/>' +
+                        'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat=' + counter['LATITUDINE'] +
+                        '&long=' + counter['LONGITUDINE'] + '">fai click qui...</a><br/>' +
+                        '</div>' +
+                        '</div>';
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    });
+
+
+                }
+            }
         });
 
-        // This example creates a simple polygon representing the Bermuda Triangle.
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
@@ -402,3 +437,4 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
 </body>
 
 </html>
+

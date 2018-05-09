@@ -2,10 +2,15 @@
 session_start();
 //Controllo che si è loggato!
 if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
-    header('Location: ../pages/notfound.html');
-include("function.php");
+    header('Location: ./notfound.html');
+include("../script_tncweb/function.php");
 $con=connect();
-$query="select * from rilievo where CF_USER='BVLVCN91C27A717P' AND STATO is not null";
+$operator=$_GET['operator'];
+$query="select * from user where FULLNAME='".$operator."'";
+$ris=run_query($query,$con);
+$row = mysql_fetch_array($ris);
+$cf_operator=$row['CF'];
+$query="select * from rilievo where CF_USER='".$cf_operator."' AND STATO is not null";
 $ris=run_query($query,$con);
 
 $er=array();
@@ -89,6 +94,7 @@ close_connection($ris,$con);
 
         $(document).ready(function() {
 
+            $("#fullname_user").text($('html').attr('FULLNAME')+" ");
 
             var jsonStr = <?php echo json_encode($er); ?>;
 
@@ -100,15 +106,6 @@ close_connection($ris,$con);
                         + counter['LONGITUDINE'] + " LATITUDINE:" + counter['LATITUDINE']);
 
                     var myLatLng = {lat: parseFloat(counter['LATITUDINE']), lng: parseFloat(counter['LONGITUDINE'])};
-
-                        marker = new google.maps.Marker({
-                            position: myLatLng,
-                            map: map,
-                            title: counter['DENOMINAZIONE'],
-                            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-                        });
-
-                        alert("STATO:"+counter['STATO']);
 
                     if(counter['STATO']=="VALIDATO")
                     {
@@ -397,7 +394,9 @@ close_connection($ris,$con);
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
-
+                    <li>
+                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

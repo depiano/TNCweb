@@ -6,10 +6,6 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
 ?>
 <!DOCTYPE html>
 <html lang="en" CF="<?php echo $_SESSION['CF']; ?>" FULLNAME="<?php echo $_SESSION['FULLNAME']; ?>">
-
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,7 +56,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                 }
                 else
                 {
-                    $(window.location).attr('href', 'profile.php?date='+ $("#date").val());
+                    $(window.location).attr('href', 'read_point_by_date.php?date='+ $("#date").val());
                 }
 
             });
@@ -78,10 +74,12 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                 }
                 else
                 {
-                    $(window.location).attr('href', 'read_point_by_operator?operator='+ $("#operator").val());
+                    $(window.location).attr('href', 'read_point_by_operator.php?operator='+ $("#operator").val());
                 }
 
             });
+            
+            $("#fullname_user").text($('html').attr('FULLNAME')+" ");
         });
 
     </script>
@@ -132,6 +130,9 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                     </li>
                     <li>
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
+                    </li>
+                    <li>
+                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
                     </li>
 
                 </ul>
