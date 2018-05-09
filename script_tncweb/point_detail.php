@@ -23,6 +23,7 @@ if(mysql_num_rows($ris)>0)
         $censimento['DUG'] = $row['DUG'];
 		$censimento['DATA'] = $row['DATA'];
         $censimento['ESPONENTE'] = $row['ESPONENTE'];
+        $censimento['STATO']=$row['STATO'];
         $censimento['PATHFOTOCIVICO'] = $row['PATHFOTOCIVICO'];
         $censimento['PATHFOTOABITAZIONE'] = $row['PATHFOTOABITAZIONE'];
         $censimento['CF_USER'] = $row['CF_USER'];
