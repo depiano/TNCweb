@@ -5,7 +5,7 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
     header('Location: ../pages/notfound.html');
 include("function.php");
 $con=connect();
-$query="select * from rilievo where CF_USER='BVLVCN91C27A717P'";
+$query="select * from rilievo where CF_USER='BVLVCN91C27A717P' AND STATO is not null";
 $ris=run_query($query,$con);
 
 $er=array();
@@ -107,9 +107,30 @@ close_connection($ris,$con);
                             title: counter['DENOMINAZIONE'],
                             icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
                         });
-                        
+
+                        alert("STATO:"+counter['STATO']);
+
+                    if(counter['STATO']=="VALIDATO")
+                    {
+
+                        marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: counter['DENOMINAZIONE']
+                        });
+                    }
+                    else if (counter['STATO']=="NON VALIDATO")
+                    {
+                        marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: counter['DENOMINAZIONE'],
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+                        });
+                    }
+
                     var esponente = "";
-                    if (counter['ESPONENTE'] != null)
+                    if (counter['ESPONENTE'] != "NON DISPONIBILE")
                         esponente = counter['ESPONENTE'];
 
                     var contentString = '<div id="content">' +
