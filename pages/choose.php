@@ -78,8 +78,12 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                 }
 
             });
-            
+
             $("#fullname_user").text($('html').attr('FULLNAME')+" ");
+
+            $("#button_marker").click(function () {
+                    $(window.location).attr('href', 'draw_polygon.php?');
+                                });
         });
 
     </script>

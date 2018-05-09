@@ -13,11 +13,17 @@ if(mysql_num_rows($ris)>0)
 }
 else
 {
-    $er['ERROR']='none';
-    $passwordmd5=md5($_POST['PASSWORD']);
-
-    $query="INSERT INTO super_user(EMAIL,FULLNAME,PHONE,PASSWORD,CF) VALUES ('".$_POST['EMAIL']."','".$_POST['FULLNAME']."','".$_POST['PHONE']."','".$passwordmd5."','".$_POST['CF']."')";
-   $ris=run_query($query,$con);
+    if(((($_POST['EMAIL']=="" || $_POST['FULLNAME']=="") || $_POST['PHONE']=="") || $_POST['PASSWORD']=="") || $_POST['CF']=="")
+        $er['ERROR']='yes';
+    else
+    {
+        $er['ERROR']='none';
+        $passwordmd5=md5($_POST['PASSWORD']);
+    
+        $query="INSERT INTO super_user(EMAIL,FULLNAME,PHONE,PASSWORD,CF) VALUES ('".$_POST['EMAIL']."','".$_POST['FULLNAME']."','".$_POST['PHONE']."','".$passwordmd5."','".$_POST['CF']."')";
+       $ris=run_query($query,$con);
+    
+    }
 }
 	
 echo json_encode($er);
