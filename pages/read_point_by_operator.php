@@ -149,6 +149,7 @@ close_connection($ris,$con);
                         '</div>' +
                         '</div>';
 
+                    /*)
                     var infowindow = new google.maps.InfoWindow({
                         content: contentString
                     });
@@ -157,6 +158,18 @@ close_connection($ris,$con);
                     marker.addListener('click', function () {
                         infowindow.open(map, marker);
                     });
+                */
+
+                    var infowindow = new google.maps.InfoWindow()
+
+                    google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){
+                        return function() {
+                            infowindow.setContent(contentString);
+                            infowindow.open(map,marker);
+                        };
+                    })(marker,contentString,infowindow));
+
+
 
 
                 }
