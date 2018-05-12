@@ -107,7 +107,7 @@ $cf=$_SESSION['CF'];
                                 {
                                     $("#conferma_censimento").prop("disabled",true);
                                     $("#annulla").prop("disabled",true);
-                                    $("#message").text("In data: "+counter['DATA']+" hai validato questa struttura.");
+                                    $("#message").text("Congratulazione! Hai validato questa struttura.");
                                 }
 
                                 /*
