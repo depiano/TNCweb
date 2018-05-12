@@ -2,7 +2,7 @@
 session_start();
 include("./function.php");
 $con=connect();
-$query="UPDATE rilievo SET CF_SUPERUSER='".$_POST['CF']."',STATO='VALIDATO' WHERE LONGITUDINE='".$_POST['LONGITUDINE']."' AND LATITUDINE='".$_POST['LATITUDINE']."'";
+$query="UPDATE rilievo SET CF_SUPERUSER='".$_POST['CF']."',STATO='NON VALIDATO' WHERE LONGITUDINE='".$_POST['LONGITUDINE']."' AND LATITUDINE='".$_POST['LATITUDINE']."'";
 
 $ris=run_query($query,$con);
 

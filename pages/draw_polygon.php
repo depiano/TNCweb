@@ -83,28 +83,45 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                     '</div>'+
                                     '</div>';
 
+                                /*
                                 var infowindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
-                                
-                                //Disabilita i bottoni qui
-                                if(counter['CF_SUPERUSER']!=null)
-                                {
-                                    $("#conferma_censimento").prop("disabled",true);
-                                    $("#annulla").prop("disabled",true);
-                                    $("#message").text("In data: "+counter['DATA']+" hai validato questa struttura.");
-                                }
+                                */
 
+                            /*
                                 marker.addListener('click', function() {
                                     infowindow.open(map, marker);
                                 });
+                                */
+
+
+                            /*)
+                           var infowindow = new google.maps.InfoWindow({
+                               content: contentString
+                           });
+
+
+                           marker.addListener('click', function () {
+                               infowindow.open(map, marker);
+                           });
+                       */
+
+                            var infowindow = new google.maps.InfoWindow()
+
+                            google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){
+                                return function() {
+                                    infowindow.setContent(contentString);
+                                    infowindow.open(map,marker);
+                                };
+                            })(marker,contentString,infowindow));
 
 
                         }
                     }
                     else
                     {
-                        $("#message").text(jsonStr['ERROR']);
+                        alert("Errore nella query!");
                     }
                 }
             });

@@ -113,11 +113,21 @@ close_connection($ris,$con);
                         marker = new google.maps.Marker({
                             position: myLatLng,
                             map: map,
-                            title: counter['DENOMINAZIONE']
+                            title: counter['DENOMINAZIONE'],
+                            icon: 'http://maps.google.com/mapfiles/ms/micons/green-dot.png'
                         });
                     }
                     else if (counter['STATO']=="NON VALIDATO")
                     {
+                        marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: counter['DENOMINAZIONE']
+                        });
+                    }
+                    else if(counter['STATO']=="IN ATTESA")
+                    {
+
                         marker = new google.maps.Marker({
                             position: myLatLng,
                             map: map,
@@ -143,7 +153,6 @@ close_connection($ris,$con);
                         'Nome comune: ' + counter['NOMECOMUNE'] + '<br/>' +
                         'Foto abitazione: <a href="' + counter['PATHFOTOABITAZIONE'] + '">Clicca qui</a><br/>' +
                         'Foto civico: <a href="' + counter['PATHFOTOCIVICO'] + '">Clicca qui</a><br/><br/>' +
-                        'Il censimento di questa abitazione è stato effettuato da: ' + $('html').attr('FULLNAME') + '<br/>' +
                         'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat=' + counter['LATITUDINE'] +
                         '&long=' + counter['LONGITUDINE'] + '">fai click qui...</a><br/>' +
                         '</div>' +
@@ -457,4 +466,3 @@ close_connection($ris,$con);
 </body>
 
 </html>
-

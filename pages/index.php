@@ -90,12 +90,12 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                     'Nome comune: '+counter['NOMECOMUNE']+'<br/>' +
                                     'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
                                     'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
-                            'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
                                     'Per maggiori dettagli <a href="dettaglio_rilievo.php?lat='+counter['LATITUDINE']+
                                     '&long='+counter['LONGITUDINE']+'">fai click qui...</a><br/>'+
                                     '</div>'+
                                     '</div>';
 
+                                /*
                                 var infowindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
@@ -104,6 +104,28 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                 marker.addListener('click', function() {
                                     infowindow.open(map, marker);
                                 });
+                                */
+
+                            /*
+                               var infowindow = new google.maps.InfoWindow({
+                                   content: contentString
+                               });
+
+
+                               marker.addListener('click', function () {
+                                   infowindow.open(map, marker);
+                               });
+                           */
+
+                            var infowindow = new google.maps.InfoWindow()
+
+                            google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){
+                                return function() {
+                                    infowindow.setContent(contentString);
+                                    infowindow.open(map,marker);
+                                };
+                            })(marker,contentString,infowindow));
+
 
 
                         }

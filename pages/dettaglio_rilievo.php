@@ -93,14 +93,15 @@ $cf=$_SESSION['CF'];
                                     'Nome comune: '+counter['NOMECOMUNE']+'<br/>' +
                                     'Foto abitazione: <a href="'+counter['PATHFOTOABITAZIONE']+'">Clicca qui</a><br/>'+
                                     'Foto civico: <a href="'+counter['PATHFOTOCIVICO']+'">Clicca qui</a><br/><br/>'+
-                            'Il censimento di questa abitazione è stato effettuato da: '+$('html').attr('FULLNAME')+'<br/>'+
+                            'Il censimento di questa abitazione è stato effettuato da: '+jsonStr['OPERATOR'].FULLNAME+'<br/>'+
                                     '</div>'+
                                     '</div>';
 
-                                var infowindow = new google.maps.InfoWindow({
+                             /*   var infowindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
-                                
+                                */
+
                                 //Disabilita i bottoni qui
                                 if(counter['CF_SUPERUSER']!=null)
                                 {
@@ -109,9 +110,30 @@ $cf=$_SESSION['CF'];
                                     $("#message").text("In data: "+counter['DATA']+" hai validato questa struttura.");
                                 }
 
+                                /*
                                 marker.addListener('click', function() {
                                     infowindow.open(map, marker);
                                 });
+                                */
+                            /*
+                               var infowindow = new google.maps.InfoWindow({
+                                   content: contentString
+                               });
+
+
+                               marker.addListener('click', function () {
+                                   infowindow.open(map, marker);
+                               });
+                           */
+
+                            var infowindow = new google.maps.InfoWindow()
+
+                            google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){
+                                return function() {
+                                    infowindow.setContent(contentString);
+                                    infowindow.open(map,marker);
+                                };
+                            })(marker,contentString,infowindow));
 
 
                         }
@@ -170,7 +192,28 @@ $cf=$_SESSION['CF'];
             });
             
             $("#annulla").click(function () {
-                window.location.href = "./index.php";
+                $.ajax({
+                    url: "../script_tncweb/revert_census.php",
+                    type: "POST",
+                    data: {
+                        'LONGITUDINE': <?php echo $_GET['long']; ?>,
+                        'LATITUDINE': <?php echo $_GET['lat']; ?>,
+                        'CF': $('html').attr('CF')
+                    },
+                    dataType: "JSON",
+                    success: function (jsonStr) {
+                        //alert(jsonStr);
+                        if (jsonStr['ERROR'] == 'none') {
+                            $("#message").text("Congratulazione! Hai invalidato il censimento.");
+                            $("#conferma_censimento").prop("disabled",true);
+                            $("#annulla").prop("disabled",true);
+
+                        }
+                        else {
+                            $("#message").text("Attenzione! Si è verificato un errore.");
+                        }
+                    }
+                });
             });
         
         });
