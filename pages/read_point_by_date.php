@@ -418,7 +418,7 @@ close_connection($ris,$con);
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
                     <li>
-                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
+                        <a href="choose.php"><i class="fa fa-wrench fa-fw"></i> Ricerca Censimenti</a>
                     </li>
 
                 </ul>

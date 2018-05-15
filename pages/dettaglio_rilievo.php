@@ -102,29 +102,20 @@ $cf=$_SESSION['CF'];
                                 });
                                 */
 
-                                //Disabilita i bottoni qui
-                                if(counter['CF_SUPERUSER']!=null)
-                                {
-                                    $("#conferma_censimento").prop("disabled",true);
-                                    $("#annulla").prop("disabled",true);
-                                    $("#message").text("Congratulazione! Hai validato questa struttura.");
-                                }
 
-                                /*
-                                marker.addListener('click', function() {
-                                    infowindow.open(map, marker);
-                                });
-                                */
-                            /*
-                               var infowindow = new google.maps.InfoWindow({
-                                   content: contentString
-                               });
+                            if(counter['STATO']=="VALIDATO")
+                            {
 
-
-                               marker.addListener('click', function () {
-                                   infowindow.open(map, marker);
-                               });
-                           */
+                                $("#conferma_censimento").prop("disabled",true);
+                                $("#annulla").prop("disabled",true);
+                                $("#message").text("Congratulazione! Hai validato questa struttura.");
+                            }
+                            else if (counter['STATO']=="NON VALIDATO")
+                            {
+                                $("#conferma_censimento").prop("disabled",true);
+                                $("#annulla").prop("disabled",true);
+                                $("#message").text("Congratulazione! Hai invalidato questa struttura.");
+                            }
 
                             var infowindow = new google.maps.InfoWindow()
 
@@ -448,7 +439,7 @@ $cf=$_SESSION['CF'];
                         <a href="censimenti.php"><i class="fa fa-table fa-fw"></i> Censimenti da analizzare</a>
                     </li>
                     <li>
-                        <a href="choose.php"><i class="fa fa-table fa-fw"></i> Ricerca Censimenti</a>
+                        <a href="choose.php"><i class="fa fa-wrench fa-fw"></i> Ricerca Censimenti</a>
                     </li>
                 </ul>
             </div>
