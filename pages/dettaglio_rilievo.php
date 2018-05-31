@@ -158,53 +158,60 @@ $cf=$_SESSION['CF'];
             $("#fullname_user").text($('html').attr('FULLNAME')+" ");
 
              $("#conferma_censimento").click(function () {
-                $.ajax({
-                    url: "../script_tncweb/confirm_census.php",
-                    type: "POST",
-                    data: {
-                        'LONGITUDINE': <?php echo $_GET['long']; ?>,
-                        'LATITUDINE': <?php echo $_GET['lat']; ?>,
-                        'CF': $('html').attr('CF')
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        //alert(jsonStr);
-                        if (jsonStr['ERROR'] == 'none') {
-                            $("#message").text("Congratulazione! Hai convalidato il censimento.");
-                            $("#conferma_censimento").prop("disabled",true);
-                            $("#annulla").prop("disabled",true);
 
-                        }
-                        else {
-                            $("#message").text("Attenzione! Si è verificato un errore.");
-                        }
-                    }
-                });
+                 if (confirm("Sei sicuro?")) {
+                     $.ajax({
+                         url: "../script_tncweb/confirm_census.php",
+                         type: "POST",
+                         data: {
+                             'LONGITUDINE': <?php echo $_GET['long']; ?>,
+                             'LATITUDINE': <?php echo $_GET['lat']; ?>,
+                             'CF': $('html').attr('CF')
+                         },
+                         dataType: "JSON",
+                         success: function (jsonStr) {
+                             //alert(jsonStr);
+                             if (jsonStr['ERROR'] == 'none') {
+                                 $("#message").text("Congratulazione! Hai convalidato il censimento.");
+                                 $("#conferma_censimento").prop("disabled",true);
+                                 $("#annulla").prop("disabled",true);
+
+                             }
+                             else {
+                                 $("#message").text("Attenzione! Si è verificato un errore.");
+                             }
+                         }
+                     });
+                 }
+
             });
             
             $("#annulla").click(function () {
-                $.ajax({
-                    url: "../script_tncweb/revert_census.php",
-                    type: "POST",
-                    data: {
-                        'LONGITUDINE': <?php echo $_GET['long']; ?>,
-                        'LATITUDINE': <?php echo $_GET['lat']; ?>,
-                        'CF': $('html').attr('CF')
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        //alert(jsonStr);
-                        if (jsonStr['ERROR'] == 'none') {
-                            $("#message").text("Congratulazione! Hai invalidato il censimento.");
-                            $("#conferma_censimento").prop("disabled",true);
-                            $("#annulla").prop("disabled",true);
+                if (confirm("Sei sicuro?")) {
+                    $.ajax({
+                        url: "../script_tncweb/revert_census.php",
+                        type: "POST",
+                        data: {
+                            'LONGITUDINE': <?php echo $_GET['long']; ?>,
+                            'LATITUDINE': <?php echo $_GET['lat']; ?>,
+                            'CF': $('html').attr('CF')
+                        },
+                        dataType: "JSON",
+                        success: function (jsonStr) {
+                            //alert(jsonStr);
+                            if (jsonStr['ERROR'] == 'none') {
+                                $("#message").text("Congratulazione! Hai invalidato il censimento.");
+                                $("#conferma_censimento").prop("disabled",true);
+                                $("#annulla").prop("disabled",true);
 
+                            }
+                            else {
+                                $("#message").text("Attenzione! Si è verificato un errore.");
+                            }
                         }
-                        else {
-                            $("#message").text("Attenzione! Si è verificato un errore.");
-                        }
-                    }
-                });
+                    });
+                }
+
             });
         
         });

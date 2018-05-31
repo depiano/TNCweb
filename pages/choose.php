@@ -88,6 +88,12 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                                 });
         });
 
+        load()
+        {
+            alert("caiooo");
+
+        }
+
     </script>
 </head>
 
@@ -199,7 +205,8 @@ if(!(isset($_SESSION['CF']) && isset($_SESSION['FULLNAME'])))
                             <img src="../images/upload.png" alt="...">
                             <div class="caption">
                                 <p style="text-align:center;">
-                                    <input name="myFile" type="file" class="btn btn-primary" >
+
+                                    <input name="myFile" type="file" class="btn btn-primary" onclick="load();">
                                 </p>
                             </div>
                         </div>
