@@ -1,1 +1,7 @@
-### :point_right: TNCweb - Toponomastica & numeri civici :point_left:
+
+### Obiettivo del sistema TNC - Toponomastica & numeri civici
+
+Il sistema TNC che si vuole realizzare ha come scopo principale quello di facilitare il censimento delle abitazioni da parte dei comuni italiani. Molti comuni in questi ultimi anni stanno avendo questa esigenza, con il decreto crescita convertito in legge il 17 Dicembre 2012 fu pianificata la transizione ad un censimento permanente della popolazione e delle abitazioni. Reperire queste informazioni per i comuni è un’operazione molto costosa e che richiede tempo, soprattutto se pensiamo a comuni con tanti abitanti. Oltre al tempo che bisogna spendere per reperire informazioni, bisogna tener conto anche del tempo da impiegare per controllare e validare i dati manualmente. Il nostro sistema, attraverso un’applicazione cross-Platform, permette di effettuare il censimento di edifici presenti sul territorio comunale. L’applicazione farà in modo che questi dati seguano gli standard e le norme definite dall’ISTAT. Tramite questa applicazione si acquisiranno informazioni aggiuntive: coordinate geografiche e immagini relative ai civici.
+Gli utenti dell’app avranno a disposizione uno storico di tutti i censimenti effettuati e la possibilità di realizzarne altri. Durante la fase di acquisizione di un censimento di un edificio, l’applicazione rileverà la posizione del tecnico tramite GPS del proprio smartphone e inserirà informazioni relative all’edificio da censire.
+I dati forniti dal tecnico saranno monitorati e gestiti da un amministratore comunale tramite una web app. 
+
